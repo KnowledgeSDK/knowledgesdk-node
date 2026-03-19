@@ -1,0 +1,92 @@
+{
+  "name": "@knowledgesdk/node",
+  "version": "0.1.0",
+  "description": "KnowledgeSDK Node.js SDK - Official Node.js client for the KnowledgeSDK API",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc --module commonjs --outDir dist",
+    "build:esm": "tsc --module es2020 --outDir dist/esm && npm run bundle",
+    "bundle": "rollup -c rollup.config.js",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "format": "prettier --write 'src/**/*.{ts,tsx}'",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "prepare": "npm run build",
+    "publish-beta": "npm run build && npm publish --tag beta",
+    "publish-stable": "npm run build && npm publish",
+    "release": "npm run clean && npm run build && npm publish",
+    "release:patch": "npm version patch && npm run release",
+    "release:minor": "npm version minor && npm run release",
+    "release:major": "npm version major && npm run release"
+  },
+  "keywords": [
+    "knowledgesdk",
+    "knowledge",
+    "extract",
+    "scrape",
+    "classify",
+    "screenshot",
+    "sitemap",
+    "search",
+    "api",
+    "sdk",
+    "node",
+    "typescript"
+  ],
+  "author": "KnowledgeSDK",
+  "license": "MIT",
+  "homepage": "https://knowledgesdk.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/knowledgesdk/knowledgesdk-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/knowledgesdk/knowledgesdk-node/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "cross-fetch": "^4.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.4",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.29",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.5",
+    "rollup": "^3.29.4",
+    "ts-jest": "^29.1.2",
+    "tslib": "^2.8.1",
+    "typescript": "^5.3.3"
+  }
+}
