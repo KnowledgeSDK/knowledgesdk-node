@@ -4,6 +4,7 @@ export interface ErrorOptions {
   requestId?: string;
   cause?: Error;
   data?: any;
+  retryAfter?: number;
 }
 
 export class KnowledgeSDKError extends Error {
@@ -51,7 +52,7 @@ export class RateLimitError extends KnowledgeSDKError {
   constructor(message: string, options: ErrorOptions = {}) {
     super(message, options);
     this.name = 'RateLimitError';
-    this.retryAfter = typeof options === 'number' ? options : undefined;
+    this.retryAfter = typeof options.retryAfter === 'number' ? options.retryAfter : undefined;
   }
 }
 
