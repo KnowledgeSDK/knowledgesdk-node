@@ -171,7 +171,7 @@ export {
 export { DEFAULT_BASE_URL, DEFAULT_MAX_RETRIES, DEFAULT_TIMEOUT } from './constants';
 
 // Re-export resource types
-export type { ExtractResult, ExtractOptions, ExtractAsyncOptions, ExtractAsyncResult, KnowledgeItem, BusinessProfile } from './api/extract';
+export type { ExtractResult, ExtractOptions, ExtractAsyncOptions, ExtractAsyncResult, ExtractStreamOptions, ExtractStreamEvent, KnowledgeItem, BusinessProfile } from './api/extract';
 export type { ScrapeResult } from './api/scrape';
 export type { BusinessClassification } from './api/classify';
 export type { ScreenshotResult } from './api/screenshot';

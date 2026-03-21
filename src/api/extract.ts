@@ -32,6 +32,20 @@ export interface ExtractOptions {
   maxPages?: number;
 }
 
+export interface ExtractStreamOptions {
+  maxPages?: number;
+}
+
+export type ExtractStreamEvent =
+  | { type: 'connected'; message: string }
+  | { type: 'progress'; message: string }
+  | { type: 'business_classified'; business: { businessName: string; businessType: string; industry: string; description: string } }
+  | { type: 'pages_planned'; pages: Array<{ url: string; purpose: string }> }
+  | { type: 'page_scraped'; url: string; index: number; total: number; status: 'done' | 'failed' }
+  | { type: 'urls_triaged'; suggestedUrls: Array<{ url: string; reason: string }> }
+  | { type: 'complete'; result: ExtractResult }
+  | { type: 'error'; message: string };
+
 export interface ExtractAsyncOptions {
   maxPages?: number;
   callbackUrl?: string;
@@ -72,6 +86,31 @@ export class Extract {
    */
   async runAsync(url: string, options?: ExtractAsyncOptions): Promise<ExtractAsyncResult> {
     return this.httpClient.post<ExtractAsyncResult>('/extract/async', {
+      url,
+      ...options,
+    });
+  }
+
+  /**
+   * Stream extraction progress as server-sent events.
+   * Yields typed events as the pipeline runs: classification, page discovery,
+   * per-page scraping, and the final complete result.
+   * Requires Node.js 18+ (native fetch).
+   *
+   * @example
+   * ```typescript
+   * for await (const event of client.extract.runStream('https://stripe.com')) {
+   *   if (event.type === 'page_scraped') {
+   *     console.log(`Scraped ${event.index + 1}/${event.total}: ${event.url}`);
+   *   }
+   *   if (event.type === 'complete') {
+   *     console.log(event.result.knowledgeItems);
+   *   }
+   * }
+   * ```
+   */
+  async *runStream(url: string, options?: ExtractStreamOptions): AsyncGenerator<ExtractStreamEvent> {
+    yield* this.httpClient.streamPost<ExtractStreamEvent>('/extract/stream', {
       url,
       ...options,
     });

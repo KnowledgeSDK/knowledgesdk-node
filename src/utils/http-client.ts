@@ -8,6 +8,7 @@ import {
 } from '../errors';
 import { VERSION } from '../constants';
 import fetch from 'cross-fetch';
+import { fetchEventSource } from '@microsoft/fetch-event-source';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -378,5 +379,80 @@ export class HttpClient {
       method: 'DELETE',
       ...options,
     });
+  }
+
+  /**
+   * POST to a server-sent events endpoint and yield typed events as an async generator.
+   * Requires Node.js 18+ (or a runtime with native fetch support).
+   */
+  async *streamPost<T = any>(path: string, data?: any): AsyncGenerator<T> {
+    const url = this.createUrl(path);
+    const headers = { ...this.getHeaders(), Accept: 'text/event-stream', 'Content-Type': 'application/json' };
+
+    const queue: T[] = [];
+    let waitResolve: (() => void) | null = null;
+    let done = false;
+    let streamError: Error | null = null;
+    const controller = new AbortController();
+
+    const enqueue = (item: T) => {
+      queue.push(item);
+      waitResolve?.();
+      waitResolve = null;
+    };
+
+    const finish = (err?: Error) => {
+      done = true;
+      streamError = err ?? null;
+      waitResolve?.();
+      waitResolve = null;
+    };
+
+    fetchEventSource(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(data),
+      signal: controller.signal,
+      async onopen(response) {
+        if (!response.ok) {
+          const text = await response.text().catch(() => '');
+          let body: any = {};
+          try { body = JSON.parse(text); } catch {}
+          throw new APIError(body.message || `Stream failed: ${response.status}`, {
+            statusCode: response.status,
+            code: 'stream_error',
+            data: body,
+          });
+        }
+      },
+      onmessage(ev) {
+        if (!ev.data) return;
+        try {
+          const parsed = JSON.parse(ev.data);
+          enqueue({ type: ev.event || 'message', ...parsed } as T);
+        } catch {}
+      },
+      onclose() { finish(); },
+      onerror(err) {
+        finish(err instanceof Error ? err : new Error(String(err)));
+        throw err; // prevent automatic retry
+      },
+    }).catch((err) => {
+      if (!done) finish(err instanceof Error ? err : new Error(String(err)));
+    });
+
+    try {
+      while (!done || queue.length > 0) {
+        if (queue.length > 0) {
+          yield queue.shift()!;
+        } else {
+          await new Promise<void>((r) => { waitResolve = r; });
+        }
+      }
+    } finally {
+      controller.abort();
+    }
+
+    if (streamError) throw streamError;
   }
 }

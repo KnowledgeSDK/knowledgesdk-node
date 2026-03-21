@@ -69,6 +69,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
+    "@microsoft/fetch-event-source": "^2.0.1",
     "cross-fetch": "^4.0.0"
   },
   "devDependencies": {
