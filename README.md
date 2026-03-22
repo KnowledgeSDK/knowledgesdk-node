@@ -1,6 +1,35 @@
-# @knowledgesdk/node
+<p align="center">
+  <img src="https://knowledgesdk.com/knowledgesdk_light.svg" alt="KnowledgeSDK" width="300" />
+</p>
 
-Official Node.js SDK for the [KnowledgeSDK](https://knowledgesdk.com) API. Extract structured knowledge from any website — business profiles, content, screenshots, sitemaps, and more.
+<p align="center">
+  <b>Official TypeScript / Node.js SDK for <a href="https://knowledgesdk.com">KnowledgeSDK</a></b><br/>
+  Extract structured knowledge from any website — business profiles, content, screenshots, sitemaps, and more.
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/@knowledgesdk/node">
+    <img src="https://img.shields.io/npm/v/@knowledgesdk/node.svg?style=flat-square" alt="NPM Version" />
+  </a>
+  <a href="https://github.com/KnowledgeSDK/knowledgesdk-node/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/KnowledgeSDK/knowledgesdk-node.svg?style=flat-square" alt="License" />
+  </a>
+</p>
+
+# KnowledgeSDK Node.js SDK
+
+## What is KnowledgeSDK?
+
+**KnowledgeSDK** is an API that turns any website into structured, searchable knowledge — built for developers, AI agents, and data pipelines.
+
+- 🔍 **Extract** — Crawl & extract structured knowledge from any website
+- 📄 **Scrape** — Convert any URL to clean Markdown
+- 🏢 **Classify** — AI-powered business classification from a URL
+- 📸 **Screenshot** — Full-page screenshots of any website
+- 🗺️ **Sitemap** — Discover all URLs on a domain
+- 🧠 **Search** — Semantic search across your extracted knowledge base
+
+> [Get your API key](https://knowledgesdk.com/connect)
 
 ## Installation
 
@@ -490,6 +519,18 @@ import type {
 
 ---
 
+## Documentation
+
+Full API reference → **<https://knowledgesdk.com/docs>**
+
+## Contributing
+
+We ❤️ PRs!
+
+1. **Fork** → `git checkout -b feat/awesome`
+2. Add tests & docs
+3. **PR** against `main`
+
 ## License
 
-MIT
+[MIT](LICENSE)
