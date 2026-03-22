@@ -1,6 +1,6 @@
 {
   "name": "@knowledgesdk/node",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "KnowledgeSDK Node.js SDK - Official Node.js client for the KnowledgeSDK API",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
