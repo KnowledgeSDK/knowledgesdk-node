@@ -59,7 +59,7 @@
   "homepage": "https://knowledgesdk.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/knowledgesdk/knowledgesdk-node.git"
+    "url": "https://github.com/KnowledgeSDK/knowledgesdk-node"
   },
   "bugs": {
     "url": "https://github.com/knowledgesdk/knowledgesdk-node/issues"
