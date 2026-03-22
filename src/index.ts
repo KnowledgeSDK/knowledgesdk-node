@@ -75,7 +75,7 @@ export class KnowledgeSDK {
    *
    * @example
    * ```typescript
-   * import { KnowledgeSDK } from '@knowledge/node';
+   * import { KnowledgeSDK } from '@knowledgesdk/node';
    *
    * const client = new KnowledgeSDK('sk_ks_your_api_key');
    * ```
