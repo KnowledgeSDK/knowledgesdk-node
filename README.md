@@ -1,21 +1,21 @@
-# @knowledgesdk/node
+# @knowledge/node
 
 Official Node.js SDK for the [KnowledgeSDK](https://knowledgesdk.com) API. Extract structured knowledge from any website — business profiles, content, screenshots, sitemaps, and more.
 
 ## Installation
 
 ```bash
-npm install @knowledgesdk/node
+npm install @knowledge/node
 ```
 
 ```bash
-yarn add @knowledgesdk/node
+yarn add @knowledge/node
 ```
 
 ## Quick Start
 
 ```typescript
-import { KnowledgeSDK } from '@knowledgesdk/node';
+import { KnowledgeSDK } from '@knowledge/node';
 
 const client = new KnowledgeSDK('sk_ks_your_api_key');
 
@@ -310,7 +310,7 @@ console.log(job.completedAt);
 #### Poll until complete
 
 ```typescript
-import { TimeoutError } from '@knowledgesdk/node';
+import { TimeoutError } from '@knowledge/node';
 
 try {
   const job = await client.jobs.poll('job_abc123', {
@@ -345,7 +345,7 @@ import {
   NetworkError,
   RateLimitError,
   TimeoutError,
-} from '@knowledgesdk/node';
+} from '@knowledge/node';
 
 const client = new KnowledgeSDK('sk_ks_your_api_key');
 
@@ -431,7 +431,7 @@ const client = new KnowledgeSDK('sk_ks_your_api_key', {
 ### Full async extraction workflow
 
 ```typescript
-import { KnowledgeSDK, ExtractResult, TimeoutError } from '@knowledgesdk/node';
+import { KnowledgeSDK, ExtractResult, TimeoutError } from '@knowledge/node';
 
 const client = new KnowledgeSDK(process.env.KNOWLEDGE_SDK_API_KEY!);
 
@@ -485,7 +485,7 @@ import type {
   JobResult,
   JobStatus,
   KnowledgeSDKOptions,
-} from '@knowledgesdk/node';
+} from '@knowledge/node';
 ```
 
 ---

@@ -1,5 +1,5 @@
 {
-  "name": "@knowledgesdk/node",
+  "name": "@knowledge/node",
   "version": "0.1.0",
   "description": "KnowledgeSDK Node.js SDK - Official Node.js client for the KnowledgeSDK API",
   "main": "dist/index.js",
@@ -41,7 +41,6 @@
     "release:major": "npm version major && npm run release"
   },
   "keywords": [
-    "knowledgesdk",
     "knowledge",
     "extract",
     "scrape",
