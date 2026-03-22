@@ -525,7 +525,13 @@ import type {
 
 ## Documentation
 
-Full API reference → **<https://knowledgesdk.com/docs>**
+Full API reference → **[knowledgesdk.com/docs](https://knowledgesdk.com/docs)**
+
+---
+
+## Prefer the REST API?
+
+You can call the KnowledgeSDK API directly without this SDK. Full REST reference and language-agnostic guides at **[knowledgesdk.com/docs](https://knowledgesdk.com/docs)**
 
 ## Contributing
 
