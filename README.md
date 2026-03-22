@@ -20,7 +20,7 @@ import { KnowledgeSDK } from '@knowledgesdk/node';
 const client = new KnowledgeSDK('sk_ks_your_api_key');
 
 // Run the full extraction pipeline on a website
-const result = await client.extract.run('https://example.com');
+const result = await client.extract.run('https://stripe.com');
 console.log(result.business.businessName);
 console.log(result.knowledgeItems);
 ```
@@ -58,12 +58,12 @@ Run the full pipeline against a URL: scrape, classify, and return structured kno
 #### Synchronous
 
 ```typescript
-const result = await client.extract.run('https://acme.com', {
+const result = await client.extract.run('https://stripe.com', {
   maxPages: 20,
 });
 
-console.log(result.business.businessName);       // "Acme Corp"
-console.log(result.business.industrySector);     // "SaaS"
+console.log(result.business.businessName);       // "Stripe"
+console.log(result.business.industrySector);     // "Fintech"
 console.log(result.business.confidenceScore);    // 0.92
 console.log(result.pagesScraped);                // 18
 console.log(result.sitemapUrls);                 // 54
@@ -108,7 +108,7 @@ result.knowledgeItems.forEach((item) => {
 For long-running extractions, use `runAsync` to get a job ID and poll for the result:
 
 ```typescript
-const { jobId, status } = await client.extract.runAsync('https://acme.com', {
+const { jobId, status } = await client.extract.runAsync('https://stripe.com', {
   maxPages: 50,
   callbackUrl: 'https://your-server.com/webhooks/knowledgesdk',
 });
@@ -132,9 +132,9 @@ if (job.status === 'completed') {
 Scrape a single page and receive its content as Markdown along with metadata.
 
 ```typescript
-const page = await client.scrape.run('https://acme.com/pricing');
+const page = await client.scrape.run('https://stripe.com/pricing');
 
-console.log(page.title);        // "Pricing — Acme Corp"
+console.log(page.title);        // "Pricing & Fees — Stripe"
 console.log(page.description);  // "Simple, transparent pricing..."
 console.log(page.markdown);     // Full page content in Markdown
 console.log(page.links);        // Array of hrefs found on the page
@@ -159,15 +159,15 @@ console.log(page.links);        // Array of hrefs found on the page
 Classify a business by analyzing its website. Returns a structured profile without scraping the full site.
 
 ```typescript
-const classification = await client.classify.run('https://acme.com');
+const classification = await client.classify.run('https://stripe.com');
 
-console.log(classification.businessName);       // "Acme Corp"
+console.log(classification.businessName);       // "Stripe"
 console.log(classification.businessType);       // "B2B Software"
-console.log(classification.industrySector);     // "Project Management"
-console.log(classification.targetAudience);     // "SMBs and mid-market teams"
-console.log(classification.valueProposition);   // "Simplify team collaboration"
-console.log(classification.painPoints);         // ["Too many tools", "Poor visibility"]
-console.log(classification.uniqueSellingPoints); // ["Real-time sync", "One-click reporting"]
+console.log(classification.industrySector);     // "Payments & Financial Infrastructure"
+console.log(classification.targetAudience);     // "Developers and businesses of all sizes"
+console.log(classification.valueProposition);   // "Financial infrastructure for the internet"
+console.log(classification.painPoints);         // ["Complex payment integrations", "Global compliance"]
+console.log(classification.uniqueSellingPoints); // ["Developer-first APIs", "Global payments"]
 console.log(classification.confidenceScore);    // 0.89
 ```
 
@@ -178,7 +178,7 @@ console.log(classification.confidenceScore);    // 0.89
 Capture a full-page screenshot of any URL. Returns a base64-encoded PNG.
 
 ```typescript
-const { url, screenshot } = await client.screenshot.run('https://acme.com');
+const { url, screenshot } = await client.screenshot.run('https://stripe.com');
 
 // Write to disk
 import { writeFileSync } from 'fs';
@@ -196,7 +196,7 @@ const dataUrl = `data:image/png;base64,${screenshot}`;
 Discover all publicly accessible URLs for a website via its sitemap or by crawling.
 
 ```typescript
-const { url, urls, count } = await client.sitemap.run('https://acme.com');
+const { url, urls, count } = await client.sitemap.run('https://stripe.com');
 
 console.log(`Found ${count} URLs`);
 urls.forEach((u) => console.log(u));
@@ -350,7 +350,7 @@ import {
 const client = new KnowledgeSDK('sk_ks_your_api_key');
 
 try {
-  const result = await client.extract.run('https://acme.com');
+  const result = await client.extract.run('https://stripe.com');
 } catch (err) {
   if (err instanceof AuthenticationError) {
     console.error('Invalid API key:', err.message);
@@ -401,7 +401,7 @@ const client = new KnowledgeSDK('sk_ks_your_api_key');
 client.setDebugMode(true);
 
 // All requests and responses will now be printed to the console
-const result = await client.scrape.run('https://acme.com');
+const result = await client.scrape.run('https://stripe.com');
 ```
 
 ---
@@ -457,7 +457,7 @@ async function extractWebsite(url: string): Promise<ExtractResult> {
   return job.result as ExtractResult;
 }
 
-const result = await extractWebsite('https://large-site.com');
+const result = await extractWebsite('https://shopify.com');
 console.log(`Extracted ${result.knowledgeItems.length} knowledge items`);
 ```
 
