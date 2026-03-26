@@ -71,7 +71,7 @@ export class Extract {
    * @returns The full extraction result including business profile and knowledge items
    */
   async run(url: string, options?: ExtractOptions): Promise<ExtractResult> {
-    return this.httpClient.post<ExtractResult>('/extract', {
+    return this.httpClient.post<ExtractResult>('/business', {
       url,
       ...options,
     });
@@ -85,7 +85,7 @@ export class Extract {
    * @returns The job ID and initial status
    */
   async runAsync(url: string, options?: ExtractAsyncOptions): Promise<ExtractAsyncResult> {
-    return this.httpClient.post<ExtractAsyncResult>('/extract/async', {
+    return this.httpClient.post<ExtractAsyncResult>('/business/async', {
       url,
       ...options,
     });
@@ -110,7 +110,7 @@ export class Extract {
    * ```
    */
   async *runStream(url: string, options?: ExtractStreamOptions): AsyncGenerator<ExtractStreamEvent> {
-    yield* this.httpClient.streamPost<ExtractStreamEvent>('/extract/stream', {
+    yield* this.httpClient.streamPost<ExtractStreamEvent>('/business/stream', {
       url,
       ...options,
     });

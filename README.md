@@ -50,7 +50,7 @@ yarn add @knowledgesdk/node
 ```typescript
 import { KnowledgeSDK } from '@knowledgesdk/node';
 
-const client = new KnowledgeSDK('sk_ks_your_api_key');
+const client = new KnowledgeSDK('knowledgesdk_live_your_api_key');
 
 // Run the full extraction pipeline on a website
 const result = await client.extract.run('https://stripe.com');
@@ -60,10 +60,10 @@ console.log(result.knowledgeItems);
 
 ## Authentication
 
-All API calls require an API key. Keys are prefixed with `sk_ks_`. Pass your key to the constructor:
+All API calls require an API key. Keys are prefixed with `knowledgesdk_live_`. Pass your key to the constructor:
 
 ```typescript
-const client = new KnowledgeSDK('sk_ks_your_api_key');
+const client = new KnowledgeSDK('knowledgesdk_live_your_api_key');
 ```
 
 You can also set `KNOWLEDGE_SDK_API_KEY` as an environment variable and pass it explicitly:
@@ -75,7 +75,7 @@ const client = new KnowledgeSDK(process.env.KNOWLEDGE_SDK_API_KEY!);
 ## Configuration
 
 ```typescript
-const client = new KnowledgeSDK('sk_ks_your_api_key', {
+const client = new KnowledgeSDK('knowledgesdk_live_your_api_key', {
   baseUrl: 'https://api.knowledgesdk.com',  // default
   maxRetries: 3,                             // default — retries on 429 and 5xx
   timeout: 30000,                            // default — 30 seconds
@@ -380,7 +380,7 @@ import {
   TimeoutError,
 } from '@knowledgesdk/node';
 
-const client = new KnowledgeSDK('sk_ks_your_api_key');
+const client = new KnowledgeSDK('knowledgesdk_live_your_api_key');
 
 try {
   const result = await client.extract.run('https://stripe.com');
@@ -430,7 +430,7 @@ All errors expose:
 Enable request/response logging for development:
 
 ```typescript
-const client = new KnowledgeSDK('sk_ks_your_api_key');
+const client = new KnowledgeSDK('knowledgesdk_live_your_api_key');
 client.setDebugMode(true);
 
 // All requests and responses will now be printed to the console
@@ -455,7 +455,7 @@ client.setHeaders({
 By default the SDK retries up to 3 times on rate-limit (429) and server errors (5xx) using exponential backoff with jitter. Configure at construction:
 
 ```typescript
-const client = new KnowledgeSDK('sk_ks_your_api_key', {
+const client = new KnowledgeSDK('knowledgesdk_live_your_api_key', {
   maxRetries: 5,
   timeout: 60000, // 60 seconds
 });

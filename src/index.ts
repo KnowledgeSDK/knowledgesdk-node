@@ -70,14 +70,14 @@ export class KnowledgeSDK {
   /**
    * Create a new KnowledgeSDK client instance.
    *
-   * @param apiKey Your KnowledgeSDK API key (must start with 'sk_ks_')
+   * @param apiKey Your KnowledgeSDK API key (starts with 'knowledgesdk_live_' or 'knowledgesdk_test_')
    * @param options Optional configuration for the client
    *
    * @example
    * ```typescript
    * import { KnowledgeSDK } from '@knowledgesdk/node';
    *
-   * const client = new KnowledgeSDK('sk_ks_your_api_key');
+   * const client = new KnowledgeSDK('knowledgesdk_live_your_api_key');
    * ```
    */
   constructor(apiKey: string, options: KnowledgeSDKOptions = {}) {
@@ -87,9 +87,9 @@ export class KnowledgeSDK {
       });
     }
 
-    if (!apiKey.startsWith('sk_ks_')) {
+    if (!apiKey.startsWith('knowledgesdk_')) {
       throw new AuthenticationError(
-        'Invalid API key format. Keys must start with sk_ks_',
+        'Invalid API key format. Keys must start with knowledgesdk_live_ or knowledgesdk_test_',
         { code: 'invalid_api_key_format' }
       );
     }
