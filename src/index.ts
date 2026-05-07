@@ -3,7 +3,9 @@ import { Scrape } from './api/scrape';
 import { Classify } from './api/classify';
 import { Screenshot } from './api/screenshot';
 import { Sitemap } from './api/sitemap';
-import { Search } from './api/search';
+// Search (vector search across indexed knowledge items) is disabled until
+// indexing is re-enabled server-side.
+// import { Search } from './api/search';
 import { Webhooks } from './api/webhooks';
 import { Jobs } from './api/jobs';
 import { HttpClient } from './utils/http-client';
@@ -50,10 +52,8 @@ export class KnowledgeSDK {
    */
   public readonly sitemap: Sitemap;
 
-  /**
-   * The Search resource — semantic search across indexed knowledge items
-   */
-  public readonly search: Search;
+  // Search resource is temporarily disabled — vector indexing is paused.
+  // public readonly search: Search;
 
   /**
    * The Webhooks resource — manage webhook endpoints
@@ -109,7 +109,7 @@ export class KnowledgeSDK {
     this.classify = new Classify(this.httpClient);
     this.screenshot = new Screenshot(this.httpClient);
     this.sitemap = new Sitemap(this.httpClient);
-    this.search = new Search(this.httpClient);
+    // this.search = new Search(this.httpClient);
     this.webhooks = new Webhooks(this.httpClient);
     this.jobs = new Jobs(this.httpClient);
   }
@@ -176,6 +176,6 @@ export type { ScrapeResult } from './api/scrape';
 export type { BusinessClassification } from './api/classify';
 export type { ScreenshotResult } from './api/screenshot';
 export type { SitemapResult } from './api/sitemap';
-export type { SearchResult, SearchHit, SearchOptions } from './api/search';
+// export type { SearchResult, SearchHit, SearchOptions } from './api/search';
 export type { WebhookFull, WebhookCreateOptions } from './api/webhooks';
 export type { JobResult, JobStatus, PollOptions } from './api/jobs';
