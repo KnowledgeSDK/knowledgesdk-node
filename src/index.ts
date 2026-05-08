@@ -1,4 +1,6 @@
-import { Extract } from './api/extract';
+// Extract (multi-page AI knowledge extraction) is disabled while we focus on
+// the scrape surface. Re-enable to bring back client.extract.
+// import { Extract } from './api/extract';
 import { Scrape } from './api/scrape';
 import { Classify } from './api/classify';
 import { Screenshot } from './api/screenshot';
@@ -27,10 +29,8 @@ export interface KnowledgeSDKOptions {
 }
 
 export class KnowledgeSDK {
-  /**
-   * The Extract resource — full pipeline extraction (sync and async)
-   */
-  public readonly extract: Extract;
+  // Extract resource disabled — scrape-only surface for now.
+  // public readonly extract: Extract;
 
   /**
    * The Scrape resource — single-page scraping to Markdown
@@ -43,7 +43,9 @@ export class KnowledgeSDK {
   public readonly classify: Classify;
 
   /**
-   * The Screenshot resource — full-page screenshots as base64 PNG
+   * The Screenshot resource — capture URLs and get back a public CDN URL.
+   * Supports viewport presets, custom dimensions, full-page, element-only
+   * (CSS selector), wait rules, custom headers, and authenticated cookies.
    */
   public readonly screenshot: Screenshot;
 
@@ -104,7 +106,7 @@ export class KnowledgeSDK {
     );
 
     // Initialize API resources
-    this.extract = new Extract(this.httpClient);
+    // this.extract = new Extract(this.httpClient);
     this.scrape = new Scrape(this.httpClient);
     this.classify = new Classify(this.httpClient);
     this.screenshot = new Screenshot(this.httpClient);
@@ -171,10 +173,18 @@ export {
 export { DEFAULT_BASE_URL, DEFAULT_MAX_RETRIES, DEFAULT_TIMEOUT } from './constants';
 
 // Re-export resource types
-export type { ExtractResult, ExtractOptions, ExtractAsyncOptions, ExtractAsyncResult, ExtractStreamOptions, ExtractStreamEvent, KnowledgeItem, BusinessProfile } from './api/extract';
+// Extract types disabled — scrape-only surface for now.
+// export type { ExtractResult, ExtractOptions, ExtractAsyncOptions, ExtractAsyncResult, ExtractStreamOptions, ExtractStreamEvent, KnowledgeItem, BusinessProfile } from './api/extract';
 export type { ScrapeResult } from './api/scrape';
 export type { BusinessClassification } from './api/classify';
-export type { ScreenshotResult } from './api/screenshot';
+export type {
+  ScreenshotResult,
+  ScreenshotOptions,
+  ScreenshotCookie,
+  ScreenshotWaitOptions,
+  ScreenshotWaitUntil,
+  ViewportPreset,
+} from './api/screenshot';
 export type { SitemapResult } from './api/sitemap';
 // export type { SearchResult, SearchHit, SearchOptions } from './api/search';
 export type { WebhookFull, WebhookCreateOptions } from './api/webhooks';
